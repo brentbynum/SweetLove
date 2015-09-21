@@ -6,7 +6,7 @@ To describe your database schema, use the following syntax
 
     schema 'DatabaseName' {
         table 'TableName' {
-            ['ColumnName' INTEGER *] //The star indicates that this is the primary index. 
+            ['ColumnName' INTEGER *] //The star indicates that this is the primary key. 
             ['AnotherColumn' STRING] 
         }
         
