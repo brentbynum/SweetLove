@@ -115,6 +115,4 @@ let schema = macro {
     }
 }
 
-export col;
-export table;
 export schema;
