@@ -1,0 +1,26 @@
+{
+  "name": "sweetlove",
+  "description": "A set of sweet.JS macros that define a lovefield database.",
+  "version": "0.0.1",
+  "author": "Brent Bynum",
+  "licenses":[
+    {
+      "type": "BDS",
+      "url": ""
+    }
+  ],
+  "dependencies": {
+    "sweet.js": "~0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brentbynum/sweetlove.git"
+  },
+  "keywords": [
+    "macros",
+    "sweetjs",
+    "database",
+    "lovefield"
+  ],
+  "license": "BSD"
+}
