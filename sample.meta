@@ -1,6 +1,12 @@
-schema 'DatabaseName' {
-    table 'TableName' {
-        ['ColumnName' INTEGER *] //The star indicates that this is the primary index.
+var db = schema 'DatabaseName' {
+
+    table 'map'{
+        ['id' INTEGER *]
+        ['name' STRING]
+    }
+
+    table 'MyTable' {
+        ['ColumnName' INTEGER *]
         ['AnotherColumn' STRING]
     }
 

@@ -1,11 +1,11 @@
 
 macro index {
     case {
-        $mac_name $name {
+        $macName $name {
             [$idxCol:lit (,) ...] $ord
         }
     } => {
-        var table = makeIdent("table", #{$mac_name});
+        var table = makeIdent("table", #{$macName});
 
         letstx $table = [table];
         return #{
@@ -13,11 +13,11 @@ macro index {
         }
     }
     case {
-        $mac_name $name {
+        $macName $name {
             [$idxCol:lit (,) ...] $ord *
         }
     } => {
-        var table = makeIdent("table", #{$mac_name});
+        var table = makeIdent("table", #{$macName});
 
         letstx $table = [table];
         return #{
@@ -27,9 +27,9 @@ macro index {
 }
 macro col {
     case {
-        $mac_name [$name:lit : $type:ident]
+        $macName [$name:lit : $type:ident]
     } => {
-        var table = makeIdent("table", #{$mac_name});
+        var table = makeIdent("table", #{$macName});
 
         letstx $table = [table];
         return #{
@@ -37,10 +37,10 @@ macro col {
         }
     }
     case {
-        $mac_name [$name:lit : $type:ident : *]
+        $macName [$name:lit : $type:ident : *]
     } => {
-        var table = makeIdent("table", #{$mac_name});
-        var pk = makeIdent("pk", #{$mac_name});
+        var table = makeIdent("table", #{$macName});
+        var pk = makeIdent("pk", #{$macName});
         letstx $table = [table];
         letstx $pk = [pk];
         return #{
@@ -52,12 +52,12 @@ macro col {
 
 let table = macro {
     case {
-        $mac_name $tableName:lit {
+        $macName $tableName:lit {
             $([$colParams ...]) ...
         }
     } => {
-        var builder = makeIdent("builder", #{$mac_name});
-        var pk = makeIdent("pk", #{$mac_name});
+        var builder = makeIdent("builder", #{$macName});
+        var pk = makeIdent("pk", #{$macName});
         letstx $builder = [builder];
 
         return #{
@@ -73,15 +73,15 @@ let table = macro {
     }
 
     case {
-        $mac_name $tableName:lit {
+        $macName $tableName:lit {
             $([$colParams ...]) ...
             index $idx{
                 [$idxCol:lit (,) ...] $($idxParams ...)
             }
         }
     } => {
-        var builder = makeIdent("builder", #{$mac_name});
-        var pk = makeIdent("pk", #{$mac_name});
+        var builder = makeIdent("builder", #{$macName});
+        var pk = makeIdent("pk", #{$macName});
         letstx $builder = [builder];
 
         return #{
@@ -102,17 +102,38 @@ let table = macro {
 
 let schema = macro {
     case {
-        $mac_name $dbName:lit { $body ... }
+        $macName $dbName:lit { $body ... }
     } => {
-        var builder = makeIdent("builder", #{$mac_name});
+        var builder = makeIdent("builder", #{$macName});
         letstx $builder = [builder];
         return #{
             (function(){
                 var $builder = lf.schema.create($dbName, 1);
                 $body ...
+
+                return $builder;
             })();
         }
     }
 }
 
+macro open {
+    case {
+        $macName $dbBuilder as $alias {
+            $body ...
+        }
+    } => {
+
+        return #{
+           $dbBuilder.connect().then(function($alias){
+                $body ...
+           });
+        }
+    }
+}
+
+
+export col;
+export table;
 export schema;
+export open;

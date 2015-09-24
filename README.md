@@ -30,3 +30,6 @@ To describe your database schema, use the following syntax
         
     }
 
+# Compilation
+
+sjs lovefield.sjs --output sample.js sample
