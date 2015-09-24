@@ -28,3 +28,8 @@ var db = schema 'DatabaseName' {
         }                                   // you can indicate that it's unique with the *
     }
 }
+
+open db as db {
+    () => {
+    }
+}

@@ -126,7 +126,9 @@ macro open {
 
         return #{
            $dbBuilder.connect().then(function($alias){
+                (
                 $body ...
+                )($alias);
            });
         }
     }
